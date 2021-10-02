@@ -1,0 +1,74 @@
+import sys
+from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QVBoxLayout, QHBoxLayout
+
+
+class Demo(QWidget):
+    def __init__(self):
+        super(Demo, self).__init__()
+        self.resize(1000, 600)
+
+        self.back_btn = QPushButton(self)
+        self.forward_btn = QPushButton(self)
+        self.refresh_btn = QPushButton(self)
+        self.zoom_in_btn = QPushButton(self)
+        self.zoom_out_btn = QPushButton(self)
+        self.url_le = QLineEdit(self)
+
+        self.browser = QWebEngineView()
+
+        self.h_layout = QHBoxLayout()
+        self.v_layout = QVBoxLayout()
+
+        self.layout_init()
+        self.btn_init()
+        self.le_init()
+        self.browser_init()
+
+    def layout_init(self):
+        self.h_layout.setSpacing(0)
+        self.h_layout.setContentsMargins(0,50,0,0)
+        self.h_layout.addWidget(self.back_btn)
+        self.h_layout.addWidget(self.forward_btn)
+        self.h_layout.addWidget(self.refresh_btn)
+        self.h_layout.addStretch(2)
+        self.h_layout.addWidget(self.url_le)
+        self.h_layout.addStretch(2)
+        self.h_layout.addWidget(self.zoom_in_btn)
+        self.h_layout.addWidget(self.zoom_out_btn)
+
+        self.v_layout.addLayout(self.h_layout)
+        self.v_layout.addWidget(self.browser)
+
+        self.setLayout(self.v_layout)
+
+    def browser_init(self):
+        self.browser.load(QUrl('https://baidu.com'))
+
+    def btn_init(self):
+        self.back_btn.setIcon(QIcon('images/back.png'))
+        self.forward_btn.setIcon(QIcon('images/forward.png'))
+        self.refresh_btn.setIcon(QIcon('images/refresh.png'))
+        self.zoom_in_btn.setIcon(QIcon('images/zoom_in.png'))
+        self.zoom_out_btn.setIcon(QIcon('images/zoom_out.png'))
+
+    def le_init(self):
+        self.url_le.setFixedWidth(400)
+        self.url_le.setPlaceholderText('Search or enter website name')
+
+    def keyPressEvent(self, QKeyEvent):
+        if QKeyEvent.key() == Qt.Key_Return or QKeyEvent.key() == Qt.Key_Enter:
+            if self.url_le.hasFocus():
+                if self.url_le.text().startswith('https://') or self.url_le.text().startswith('http://'):
+                    self.browser.load(QUrl(self.url_le.text()))
+                else:
+                    self.browser.load(QUrl('https://'+self.url_le.text()))
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    demo = Demo()
+    demo.show()
+    sys.exit(app.exec_())
