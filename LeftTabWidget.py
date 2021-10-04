@@ -23,7 +23,7 @@ from tools.Toast import Toast
 class LeftTabWidget(QWidget):
     '''左侧选项栏'''
     list_str = ['K-近邻算法', '线性回归', '逻辑回归', '决策树算法']
-    url_list = ['job_num_wordcloud.html', 'edu_need.html', 'salary_bar.html', 'edu_salary_bar.html']
+    url_list = ['job_num_wordcloud.md', 'edu_need.md', 'salary_bar.md', 'edu_salary_bar.md']
 
     def __init__(self):
 

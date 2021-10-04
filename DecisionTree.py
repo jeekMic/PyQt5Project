@@ -30,7 +30,7 @@ class DecisionTree(QTabWidget):
         layout = QHBoxLayout()
         self.browser = QWebEngineView()
         # 加载外部的web界面
-        self.browser.load(QUrl(QFileInfo("./introduction/决策树算法/section1.html").absoluteFilePath()))
+        self.browser.load(QUrl(QFileInfo("./introduction/决策树算法/section1.md").absoluteFilePath()))
         layout.addWidget(self.browser)
         self.setTabText(0, "基础介绍")
         self.tab1.setLayout(layout)
